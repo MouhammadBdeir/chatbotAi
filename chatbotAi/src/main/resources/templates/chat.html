@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Chatbot</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/chat_style.css">
+</head>
+
+<body class="container mt-5">
+<div class="chat">
+    <div class="chat-header clearfix">
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                    <img src="/img/Robot.jpg" alt="avatar">
+                </a>
+                <div class="chat-about">
+                    <h6 class="m-b-0">ChatbotAi</h6>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="chat-history" th:each="question : ${questions}">
+        <ul class="m-b-0">
+            <li class="clearfix">
+                <div class="message-data text-right">
+                    <span class="message-data-time" th:text="${question.creationDateTime}"></span>
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                </div>
+                <div class="message other-message float-right" th:text="${question.question}">  </div>
+            </li>
+            <li class="clearfix">
+                <div class="message-data">
+                    <span class="message-data-time" th:text="${question.getAnswer().creationDateTime}"></span>
+                </div>
+                <div class="message my-message" th:text="${question.getAnswer().answer}">A</div>
+            </li>
+
+        </ul>
+    </div>
+    <div class="chat-message clearfix">
+        <div class="input-group mb-0">
+            <form action="/api/chat/ask" method="post" class="form-inline my-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" ><i class="fa fa-send"></i></span>
+                    <input type="text" class="form-control" name="userMessage" placeholder="Type your message">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2" style="margin-top: 10px">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
